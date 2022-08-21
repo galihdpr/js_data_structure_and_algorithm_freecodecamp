@@ -1,0 +1,17 @@
+function palindrome(str) {
+  let newStr = str.toLowerCase().replace(/[\W_]+/g,"")
+  let compareStr = newStr.slice().split("").reverse().join("")
+  let checkArr= "";
+  if(newStr.length===compareStr.length){
+    for(let i in newStr){
+      if(newStr[i]===compareStr[i]){
+        checkArr += "1"
+      }
+    }
+  }  
+  return compareStr.length===checkArr.length
+}
+
+console.log(palindrome("ey_e"));
+
+

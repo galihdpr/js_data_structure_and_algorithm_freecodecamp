@@ -1,0 +1,25 @@
+function steamrollArray(arr) {
+  let newArr=[]
+  let tryStram = (arr)=>{
+      if(Array.isArray(arr)===false){
+        newArr.push(arr)
+      }else{
+        tryFlat(arr)
+      }
+    return newArr
+  }
+  let tryFlat = (nesArr)=>{
+    for(let i = 0; i < nesArr.length;i++){
+      tryStram(nesArr[i])
+    }
+    return newArr 
+  }
+  return tryFlat(arr)
+}
+
+console.log(steamrollArray([1, [2], [3, [[4]]]]));
+
+
+let tryArr =[1,2,[3],[[4], [[5]]]]
+
+

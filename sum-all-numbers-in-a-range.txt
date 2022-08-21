@@ -1,0 +1,14 @@
+function sumAll(arr) {
+  let sortArr = arr.sort(function(a,b){return a-b})
+  let newArr = [];
+  for(let i=sortArr[0];i<=sortArr[1];i++){
+    newArr.push(i)
+  }
+  let sumArr = newArr.reduce((val,val2)=>{
+    return val + val2
+  })
+  return sumArr
+}
+
+console.log(sumAll([1, 4]));
+

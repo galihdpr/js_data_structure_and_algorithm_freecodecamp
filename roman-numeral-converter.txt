@@ -1,0 +1,130 @@
+function convertToRoman(num) {
+ let newNum = String(num).split('').map((arr)=>Number(arr))
+ let numToRoman = ""
+ function oneAndSo(arr){
+   if(arr === 1){
+     return "I"
+   }else if(arr === 5){
+    return "V"  
+   }else if(arr === 10){
+     return "X"
+   }else if(arr === 50){
+     return "L"
+   }else if(arr === 100){
+     return "C"
+   }else if(arr === 500){
+     return "D"
+   }else if(arr === 1000){
+     return "M"
+   }else if(arr ===0){
+     return ""
+   }
+ }
+// Function for last digit
+function lastNum(arr){
+  let lastNum = ""
+  if(arr < 5){
+    if(arr !==4){
+      for(let sat = 1;sat<=arr;sat++){
+        lastNum += oneAndSo(1)
+      }
+    }else{
+      lastNum += oneAndSo(1) + oneAndSo(5)
+    }
+  }else if(arr >= 5 && arr < 10){ 
+    if(arr !== 9){
+      for(let sat = 1;sat<=arr-5;sat++){
+        lastNum += oneAndSo(1)
+      }
+      lastNum = oneAndSo(5) + lastNum
+    }else{
+      lastNum +=oneAndSo(1) + oneAndSo(10)
+    }
+  }else if(arr === 5){
+    oneAndSo(5)
+  }else{
+    oneAndSo(0)
+  }
+  return lastNum
+}
+// function for the second last digit
+function secondLastNum(arr){
+  let secondLast = ""
+  if(arr < 5){
+    if(arr !==4){
+      for(let sat = 1;sat<=arr;sat++){
+        secondLast += oneAndSo(10)
+      }
+    }else{
+      secondLast += oneAndSo(10) + oneAndSo(50)
+    }
+  }else if(arr >= 5 && arr < 10){ 
+    if(arr !== 9){
+      for(let sat = 1;sat<=arr-5;sat++){
+        secondLast += oneAndSo(10)
+      }
+      secondLast = oneAndSo(50) + secondLast
+    }else{
+      secondLast +=oneAndSo(10) + oneAndSo(100)
+    }
+  }else if(arr===5){
+    oneAndSo(50)
+  }else{
+    oneAndSo(0)
+  }
+  return secondLast
+}
+
+// function for hundreds digit
+function hundredsDig(arr){
+  let hundreds = ""
+  if(arr < 5){
+    if(arr !==4){
+      for(let sat = 1;sat<=arr;sat++){
+        hundreds += oneAndSo(100)
+      }
+    }else{
+      hundreds += oneAndSo(100) + oneAndSo(500)
+    }
+  }else if(arr >= 5 && arr < 10){ 
+    if(arr !== 9){
+      for(let sat = 1;sat<=arr-5;sat++){
+        hundreds += oneAndSo(100)
+      }
+      hundreds = oneAndSo(500) + hundreds
+    }else{
+      hundreds +=oneAndSo(100) + oneAndSo(1000)
+    }
+  }else if(arr===5){
+    oneAndSo(500)
+  }else{
+    oneAndSo(0)
+  }
+  return hundreds
+}
+
+// function for thousands digit
+function thousandsDig(arr){
+  let thousands = ""
+  if(arr < 5){
+    if(arr !==4){
+      for(let sat = 1;sat<=arr;sat++){
+        thousands += oneAndSo(1000)
+      }
+    }
+  return thousands
+  }
+}
+//final result
+ if(newNum.length===1){
+   return numToRoman = lastNum(newNum[newNum.length-1])
+ }else if(newNum.length===2){
+   return numToRoman = secondLastNum(newNum[newNum.length-2]) + lastNum(newNum[newNum.length-1])
+ }else if(newNum.length===3){
+   return numToRoman = hundredsDig(newNum[newNum.length-3])+secondLastNum(newNum[newNum.length-2]) + lastNum(newNum[newNum.length-1])
+ }else if(newNum.length===4){
+   return numToRoman = thousandsDig(newNum[newNum.length-4])+hundredsDig(newNum[newNum.length-3])+secondLastNum(newNum[newNum.length-2]) + lastNum(newNum[newNum.length-1])
+ }
+}
+
+console.log(convertToRoman(3999));

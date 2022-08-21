@@ -1,0 +1,26 @@
+function smallestCommons(arr) {
+  arr.sort(function(a,b){return a-b})
+  let [a,b] = arr;
+  let newArr=[]
+  for(let i = a;i<=b;i++){
+    newArr.push(i)
+  }
+  //calculate GCD using Euclid's algorithm
+  function gcd(a,b){
+    return !b?a:gcd(b,a%b);
+  }
+  // calculate LCM using GCD
+  function lcm(a,b){
+    return a*b/gcd(a,b)
+  }
+  // Implement those two algorithm above for range number
+  let multiple = newArr[0]
+  newArr.forEach(function(n){
+    multiple = lcm(multiple,n)
+  })
+  return multiple
+}
+
+console.log(smallestCommons([1,5]));
+
+

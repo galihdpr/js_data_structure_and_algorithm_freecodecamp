@@ -1,0 +1,120 @@
+function checkCashRegister(price, cash, cid) {
+  //Declare all neccesary variables
+  // calculate the changes
+  let changeNum = cash - price
+  // declare an array that contain all basic unit change
+  let cashBasic = [100,20,10,5,1,0.25,0.1,0.05,0.01]
+  // declare var for calculate total changes available
+  let changeAvail=0
+  // to make it consistent, reverse the cid array
+  let newCid = cid.reverse()
+  let changeArr = []
+  let changeCount;
+  // calculate total changes available
+  for(let i = 0;i<newCid.length;i++){
+    changeArr.push([newCid[i][1],Math.round(newCid[i][1]/cashBasic[i])])
+    //this is the the total change available in cashier
+    changeAvail += newCid[i][1]
+  }
+  // function to calculate change needed
+  function needChange(arr,change){
+    let residChange;
+    for(let j = 0;j<arr.length;j++){
+      changeCount = Math.floor(change/arr[j])
+      if(changeCount!==0){
+        changeArr[j].push(changeCount)
+        residChange = Math.round(change%arr[j]*100)/100
+        break
+      }
+    }
+    // recursive to check if there are no more change needed
+    if(residChange !==0){
+      needChange(cashBasic,residChange)
+    }
+    // it returns an array contain all changes needed 
+    return changeArr
+  }
+  needChange(cashBasic,changeNum)
+
+  function convertChange(arr){
+    for(let i = 0;i<arr.length;i++){
+      arr[i][0] = Math.round(arr[i][0]/arr[i][1]*100)/100
+    }
+    return arr
+  }
+  convertChange(changeArr)
+
+  //filter only unit change needed 
+  let newChangeArr = changeArr.filter((change)=>{
+    return change.length >2
+  })
+  // function to calculate actual change needed by compare tha unit available with needed change
+  function count(arr, change){
+    let cidFinal=[]
+    let count = change
+    for(let i = 0; i<arr.length; i++){
+      // if the change value is larger than the value of change available, substract it, and push the unit change and largest division into cidFinal array
+      if(count >= arr[i][0]*arr[i][1]){
+        count = Math.round((count - (arr[i][0]*arr[i][1]))*100)/100
+        cidFinal.push([arr[i][0],arr[i][0]*arr[i][1]])
+        // if the change value is smaller than the value of change available, calculate the division of change needed with unit change, and then use the value to substract it from the change value
+      }else if(count < arr[i][0]*arr[i][1]){
+        let countChange = Math.floor(count/arr[i][0])
+        count = Math.round((count - (arr[i][0]*countChange))*100)/100
+        cidFinal.push([arr[i][0],arr[i][0]*countChange])
+      }
+    }
+    // if after all iteration, there is none left from chante value, it means, we get to give change back with the available change in chasier
+    if(count === 0){
+      return cidFinal
+      // if not, it means we don't have sufficient funds in chasier
+    }else{
+      return []
+    }
+  }
+
+  //status algorithm
+  let statusObj = {}
+  function changeUnit(arr){
+    for(let i = 0;i<arr.length;i++){
+      if(arr[i][0]===100){
+        arr[i][0]="ONE HUNDRED"
+      }else if(arr[i][0]===20){
+        arr[i][0]="TWENTY"
+      }else if(arr[i][0]===10){
+        arr[i][0]="TEN"
+      }else if(arr[i][0]===5){
+        arr[i][0]="FIVE"
+      }else if(arr[i][0]===1){
+        arr[i][0]="ONE"
+      }else if(arr[i][0]===0.25){
+        arr[i][0]="QUARTER"
+      }else if(arr[i][0]===0.1){
+        arr[i][0]="DIME"
+      }else if(arr[i][0]===0.05){
+        arr[i][0]="NICKEL"
+      }else if(arr[i][0]===0.01){
+        arr[i][0]="PENNY"
+      }
+    }
+    return arr
+  }
+
+  // return object status
+  if(changeNum === changeAvail){
+    statusObj.status = "CLOSED"
+    statusObj.change = cid.reverse()
+  }else if(changeNum !== changeAvail){
+    if(count(newChangeArr,changeNum).length>0){
+      statusObj.status = "OPEN"
+      statusObj.change = changeUnit(count(newChangeArr,changeNum))
+    }else{
+      statusObj.status = "INSUFFICIENT_FUNDS"
+      statusObj.change = count(newChangeArr,changeNum)
+    }
+  }
+  return statusObj
+}
+
+console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+

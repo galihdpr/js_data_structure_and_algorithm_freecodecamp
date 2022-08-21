@@ -1,0 +1,24 @@
+function rot13(str) {
+  let alphaBase1 = "ABCDEFGHIJKLM".split("")
+  let alphaBase2 = "NOPQRSTUVWXYZ".split("")
+  let newStr=""
+  let objAlpha = {}
+  alphaBase1.forEach((alpha,i)=>{
+    objAlpha[alpha]=alphaBase2[i]
+  })
+  alphaBase2.forEach((alpha,i)=>{
+    objAlpha[alpha]=alphaBase1[i]
+  })
+  let arrStr = str.split('');
+  for(let i = 0;i<arrStr.length;i++){
+    if(/[A-Z]/g.test(arrStr[i])){
+      newStr += objAlpha[arrStr[i]]
+    }else{
+      newStr += arrStr[i]
+    }
+  }
+  
+  return newStr
+}
+
+console.log(rot13("SERR CVMMN!"));

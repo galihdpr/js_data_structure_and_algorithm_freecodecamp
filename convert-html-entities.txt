@@ -1,0 +1,20 @@
+function convertHTML(str) {
+  let arrStr= str.split("");
+  for(let i = 0; i<arrStr.length;i++){
+    if(arrStr[i]==="&"){
+      arrStr[i] = "&amp;"
+    }else if(arrStr[i]==="<"){
+      arrStr[i] = "&lt;"
+    }else if(arrStr[i]===">"){
+      arrStr[i] = "&gt;"
+    }else if(arrStr[i]==='"'){
+      arrStr[i] = "&quot;"
+    }else if(arrStr[i]==="'"){
+      arrStr[i] = "&apos;"
+    }
+  }
+  let newStr = arrStr.join("")
+  return newStr;
+}
+
+console.log(convertHTML("Schindler's List"));

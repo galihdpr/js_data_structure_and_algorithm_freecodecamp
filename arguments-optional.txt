@@ -1,0 +1,26 @@
+function addTogether(...args) {
+ let [a,b] = args 
+ if(args.length === 2){
+   if(typeof(a) === "number" && typeof(b)==="number"){
+     return args.reduce((arg1,arg2)=>{
+       return arg1 + arg2
+     })
+   }else{
+     return undefined
+   }
+ }else if(args.length < 2){
+   if(typeof(args[0])!=="number"){
+     return undefined
+   }else{
+     return function(arg3){
+       if(typeof(arg3)==="number"){
+         return Number(args) + arg3
+       }else{
+         return undefined
+       }
+     }
+   }
+ }
+}
+
+console.log(addTogether(2)([3]));

@@ -1,0 +1,19 @@
+function telephoneCheck(str) {
+  if(str.length===10){
+    return /(\d{10})/.test(str)
+  }else if(str.length > 10 && str.length <=14 && /^1/.test(str)===false){
+    return /(^\d{3}|^\(\d{3}\))(| |-)\d{3}( |-)\d{4}/.test(str)
+  }else if(str.length >=11 && str.length <=16){
+    return /^1{1}(| )(\d{3}|\(\d{3}\))(| |-)\d{3}(| |-)\d{4}/.test(str)
+  }else if(str.length < 10){
+    return false
+  }else if(str.length > 16){
+    return false
+  }
+}
+
+console.log(telephoneCheck("1 555)555-5555"));
+
+let patterTry = /^1{1}(| |-)\(\d{3}\)(| |-)\d{3}(| |-)\d{3}/.test("1 (333) 333 3333")
+console.log(patterTry)
+

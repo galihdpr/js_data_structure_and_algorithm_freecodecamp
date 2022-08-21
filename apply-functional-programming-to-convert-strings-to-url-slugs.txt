@@ -1,0 +1,15 @@
+// Only change code below this line
+function urlSlug(title) {
+  let arrTitle = title.trim().split(/[., ]/g);
+  let noSpace = arrTitle.filter((space)=>{
+    return space !== '';
+  })
+  let arrLowerCase = [];
+  arrLowerCase.push(...noSpace.map((arr)=>{
+      return arr.toLowerCase();
+  }))
+  let titleUrl = arrLowerCase.join("-")
+  return titleUrl;
+}
+// Only change code above this line
+console.log(urlSlug(" Winter Is  Coming"));

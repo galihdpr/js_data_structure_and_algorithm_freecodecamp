@@ -1,0 +1,19 @@
+function truthCheck(collection, pre) {
+  // the objective is to make sure that all objects in collection has 'pre' property and thruty value
+  // check if all objects has pre propery
+  let check = 0;
+  for(let j in collection){
+    if(collection[j].hasOwnProperty(pre) && Boolean(collection[j][pre])){
+      check++
+    }
+  }
+  return check === collection.length
+}
+
+console.log(truthCheck([{name: "Pikachu", number: 25, caught: 3}, {name: "Togepi", number: 175, caught: 1}], "number"));
+
+
+let tryArr= [1,2,3,4]
+for(let j in tryArr){
+  console.log(j)
+}

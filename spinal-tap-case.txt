@@ -1,0 +1,10 @@
+function spinalCase(str) {
+  let newStr;
+  let newStr2;
+  let patt = /(?=[A-Z])|_|-| /g
+    newStr = str.split(patt)
+  newStr2 = newStr.join("-").toLowerCase();
+  return newStr2
+}
+
+console.log(spinalCase("The_Andy_Griffith_Show"));

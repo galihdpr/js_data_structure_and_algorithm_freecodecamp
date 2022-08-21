@@ -1,0 +1,19 @@
+function sumFibs(num) {
+ let arrNum = [1,1];
+ let fibArr = [];
+ let fibNum;
+ while(arrNum[arrNum.length-1]<=num){
+   arrNum[arrNum.length] = arrNum[arrNum.length-2] + arrNum[arrNum.length-1]
+ }
+fibArr.push(...arrNum.filter(arr=>{
+  return arr%2 !==0 & arr <= num
+}))
+fibNum = fibArr.reduce((arr1,arr2)=>{
+  return arr1 + arr2
+})
+return fibNum
+}
+
+console.log(sumFibs(75025));
+
+

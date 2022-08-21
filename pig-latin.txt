@@ -1,0 +1,14 @@
+function translatePigLatin(str) {
+  let newArr;
+  let cons;
+  if(/^[AIUEO]/gi.test(str)){
+    newArr = str.concat("way");
+  }else{
+    cons = /^[^AIUEO]+/gi.exec(str).concat("ay").join("");
+    newArr = str.replace(/^[^AIUEO]+/gi,"").concat(cons)
+  }
+  return newArr
+  
+}
+
+console.log(translatePigLatin("algorithm"));

@@ -1,0 +1,25 @@
+function isPrime(ang){
+  for(let i = 2;  i*i<=ang;i++){
+    if(ang%i === 0)
+    return false;
+  }
+  return ang > 1;
+}
+
+
+function sumPrimes(num) {
+  let arrPrime = [];
+  let sumPrime;
+  for(let j = 2; j <= num; j++){
+    if(isPrime(j)){
+      arrPrime.push(j)
+    }
+  sumPrime = arrPrime.reduce((arr1,arr2)=>{
+    return arr1 + arr2
+  })
+  }
+  return sumPrime
+}
+
+console.log(sumPrimes(977));
+

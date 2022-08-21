@@ -1,0 +1,12 @@
+function fearNotLetter(str) {
+  let completeAlpha = "abcdefghijklmnopqrstuvwxyz".split("");
+  let arrStr = str.split("")
+  let comArr= completeAlpha.slice(completeAlpha.indexOf(arrStr[0]),completeAlpha.indexOf(arrStr[0])+arrStr.length)
+  for(let i = 0; i<comArr.length;i++){
+    if(arrStr.includes(comArr[i])===false){
+      return comArr[i]
+    }
+  }
+}
+
+console.log(fearNotLetter("stvwx"));
